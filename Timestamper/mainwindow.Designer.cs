@@ -72,6 +72,9 @@ namespace Timestamper
             this.tray_open = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_close = new System.Windows.Forms.ToolStripMenuItem();
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.label_usermodifier = new System.Windows.Forms.Label();
+            this.label_userhotkey = new System.Windows.Forms.Label();
+            this.textbox_modifier = new System.Windows.Forms.TextBox();
             this.textbox_keyintvalue = new System.Windows.Forms.TextBox();
             this.textbox_userhotkey = new System.Windows.Forms.TextBox();
             this.checkBox_win = new System.Windows.Forms.CheckBox();
@@ -116,6 +119,9 @@ namespace Timestamper
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.label_usermodifier);
+            this.mainpanel.Controls.Add(this.label_userhotkey);
+            this.mainpanel.Controls.Add(this.textbox_modifier);
             this.mainpanel.Controls.Add(this.textbox_keyintvalue);
             this.mainpanel.Controls.Add(this.textbox_userhotkey);
             this.mainpanel.Controls.Add(this.checkBox_win);
@@ -128,8 +134,36 @@ namespace Timestamper
             this.mainpanel.Size = new System.Drawing.Size(504, 285);
             this.mainpanel.TabIndex = 1;
             // 
+            // label_usermodifier
+            // 
+            this.label_usermodifier.AutoSize = true;
+            this.label_usermodifier.Location = new System.Drawing.Point(324, 182);
+            this.label_usermodifier.Name = "label_usermodifier";
+            this.label_usermodifier.Size = new System.Drawing.Size(93, 17);
+            this.label_usermodifier.TabIndex = 8;
+            this.label_usermodifier.Text = "Modifier code";
+            // 
+            // label_userhotkey
+            // 
+            this.label_userhotkey.AutoSize = true;
+            this.label_userhotkey.Location = new System.Drawing.Point(324, 154);
+            this.label_userhotkey.Name = "label_userhotkey";
+            this.label_userhotkey.Size = new System.Drawing.Size(67, 17);
+            this.label_userhotkey.TabIndex = 7;
+            this.label_userhotkey.Text = "Key code";
+            // 
+            // textbox_modifier
+            // 
+            this.textbox_modifier.Enabled = false;
+            this.textbox_modifier.Location = new System.Drawing.Point(167, 182);
+            this.textbox_modifier.Name = "textbox_modifier";
+            this.textbox_modifier.Size = new System.Drawing.Size(151, 22);
+            this.textbox_modifier.TabIndex = 6;
+            this.textbox_modifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // textbox_keyintvalue
             // 
+            this.textbox_keyintvalue.Enabled = false;
             this.textbox_keyintvalue.Location = new System.Drawing.Point(167, 154);
             this.textbox_keyintvalue.Name = "textbox_keyintvalue";
             this.textbox_keyintvalue.Size = new System.Drawing.Size(151, 22);
@@ -144,6 +178,7 @@ namespace Timestamper
             this.textbox_userhotkey.Size = new System.Drawing.Size(151, 22);
             this.textbox_userhotkey.TabIndex = 4;
             this.textbox_userhotkey.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textbox_userhotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_userhotkey_KeyDown);
             this.textbox_userhotkey.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_userhotkey_KeyPress);
             // 
             // checkBox_win
@@ -155,10 +190,12 @@ namespace Timestamper
             this.checkBox_win.TabIndex = 3;
             this.checkBox_win.Text = "Win";
             this.checkBox_win.UseVisualStyleBackColor = true;
+            this.checkBox_win.CheckedChanged += new System.EventHandler(this.checkBox_win_CheckedChanged);
             // 
             // checkBox_shift
             // 
             this.checkBox_shift.AutoSize = true;
+            this.checkBox_shift.Enabled = false;
             this.checkBox_shift.Location = new System.Drawing.Point(69, 168);
             this.checkBox_shift.Name = "checkBox_shift";
             this.checkBox_shift.Size = new System.Drawing.Size(58, 21);
@@ -169,6 +206,7 @@ namespace Timestamper
             // checkBox_alt
             // 
             this.checkBox_alt.AutoSize = true;
+            this.checkBox_alt.Enabled = false;
             this.checkBox_alt.Location = new System.Drawing.Point(69, 141);
             this.checkBox_alt.Name = "checkBox_alt";
             this.checkBox_alt.Size = new System.Drawing.Size(46, 21);
@@ -179,6 +217,7 @@ namespace Timestamper
             // checkBox_ctrl
             // 
             this.checkBox_ctrl.AutoSize = true;
+            this.checkBox_ctrl.Enabled = false;
             this.checkBox_ctrl.Location = new System.Drawing.Point(69, 114);
             this.checkBox_ctrl.Name = "checkBox_ctrl";
             this.checkBox_ctrl.Size = new System.Drawing.Size(51, 21);
@@ -213,6 +252,9 @@ namespace Timestamper
         private CheckBox checkBox_shift;
         private TextBox textbox_userhotkey;
         private TextBox textbox_keyintvalue;
+        private Label label_usermodifier;
+        private Label label_userhotkey;
+        private TextBox textbox_modifier;
     }
 }
 
