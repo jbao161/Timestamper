@@ -72,6 +72,7 @@ namespace Timestamper
             this.tray_open = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_close = new System.Windows.Forms.ToolStripMenuItem();
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.button_save = new System.Windows.Forms.Button();
             this.label_usermodifier = new System.Windows.Forms.Label();
             this.label_userhotkey = new System.Windows.Forms.Label();
             this.textbox_modifier = new System.Windows.Forms.TextBox();
@@ -119,6 +120,7 @@ namespace Timestamper
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.button_save);
             this.mainpanel.Controls.Add(this.label_usermodifier);
             this.mainpanel.Controls.Add(this.label_userhotkey);
             this.mainpanel.Controls.Add(this.textbox_modifier);
@@ -133,6 +135,16 @@ namespace Timestamper
             this.mainpanel.Name = "mainpanel";
             this.mainpanel.Size = new System.Drawing.Size(504, 285);
             this.mainpanel.TabIndex = 1;
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(244, 242);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(74, 30);
+            this.button_save.TabIndex = 9;
+            this.button_save.Text = "Save";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
             // 
             // label_usermodifier
             // 
@@ -179,7 +191,6 @@ namespace Timestamper
             this.textbox_userhotkey.TabIndex = 4;
             this.textbox_userhotkey.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textbox_userhotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_userhotkey_KeyDown);
-            this.textbox_userhotkey.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_userhotkey_KeyPress);
             // 
             // checkBox_win
             // 
@@ -255,6 +266,7 @@ namespace Timestamper
         private Label label_usermodifier;
         private Label label_userhotkey;
         private TextBox textbox_modifier;
+        private Button button_save;
     }
 }
 
