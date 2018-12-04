@@ -33,14 +33,18 @@ namespace Timestamper
         {
             if (Properties.Settings.Default.user_hotkey == user_hotkey &
             Properties.Settings.Default.user_modifier == user_modifier) return; // if no changes do nothing 
+            UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
             if (RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, user_modifier, user_hotkey))
             {
-                UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
                 Properties.Settings.Default.user_hotkey = user_hotkey;
                 Properties.Settings.Default.user_modifier = user_modifier;
                 textbox_userhotkey.Text = "Success";
             }
-            else { textbox_userhotkey.Text = "Fail. Hotkey is unusable."; }
+            else
+            {
+                textbox_userhotkey.Text = "Fail. Hotkey is unusable.";
+                RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, Properties.Settings.Default.user_modifier, Properties.Settings.Default.user_hotkey); // restore previous hotkey
+            }
         }
 
         public mainwindow()
@@ -81,7 +85,7 @@ namespace Timestamper
             if (Control.ModifierKeys.HasFlag(Keys.Control)) { user_modifier += intmodifier_ctrl; checkBox_ctrl.Checked = true; }
             if (Control.ModifierKeys.HasFlag(Keys.Shift)) { user_modifier += intmodifier_shift; checkBox_shift.Checked = true; }
             if (checkBox_win.Checked) user_modifier += intmodifier_win;
-            
+
             // display which modifiers are pressed
             textbox_modifier.Text = user_modifier.ToString();
         }
