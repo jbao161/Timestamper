@@ -33,14 +33,16 @@ namespace Timestamper
         {
             if (Properties.Settings.Default.user_hotkey == user_hotkey &
             Properties.Settings.Default.user_modifier == user_modifier) return; // if no changes do nothing 
+            UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
             if (RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, user_modifier, user_hotkey))
             {
-                UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
                 Properties.Settings.Default.user_hotkey = user_hotkey;
                 Properties.Settings.Default.user_modifier = user_modifier;
                 textbox_userhotkey.Text = "Success";
             }
-            else { textbox_userhotkey.Text = "Fail. Hotkey is unusable."; }
+            else {
+                RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, Properties.Settings.Default.user_modifier, Properties.Settings.Default.user_hotkey);
+                textbox_userhotkey.Text = "Fail. Hotkey is unusable."; }
         }
 
         public mainwindow()
@@ -58,7 +60,8 @@ namespace Timestamper
             // if only modifier keys are pressed, do nothing
             if (e.KeyValue == intchar_alt || e.KeyValue == intchar_ctrl || e.KeyValue == intchar_shift
                 || e.KeyValue == intchar_lwin || e.KeyValue == intchar_rwin
-                || e.KeyValue == intchar_tab || e.KeyValue == intchar_capslock || e.KeyValue == intchar_backspace)
+                || e.KeyValue == intchar_tab || e.KeyValue == intchar_capslock || e.KeyValue == intchar_backspace
+                )
             {
                 textbox_userhotkey.Text = e.KeyCode.ToString() + " (Not usable)";
                 return;
