@@ -10,15 +10,16 @@ namespace Timestamper
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-        const int keybd_key_shift = 0x10;
-        const int keybd_key_control = 0x11;
-        const int keybd_key_alt = 0x12;
-        const int keybd_state_pressed = 1;
-        const int keybd_state_unpressed = 2;
-
-        const int waittime_tics = 10000000; // todo: replace this with timespan.tickspersecond
+        // begin deletion: simulate a key press programmatically. unfortunately, this didn't work to "cancel out" a user's holding down alt key
+        //[System.Runtime.InteropServices.DllImport("user32.dll")]
+        //static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        //const int keybd_key_shift = 0x10;
+        //const int keybd_key_control = 0x11;
+        //const int keybd_key_alt = 0x12;
+        //const int keybd_state_pressed = 1;
+        //const int keybd_state_unpressed = 2;
+        // end deletion
+        const int wait_ticks_onesecond = (int)TimeSpan.TicksPerSecond; // wait one second for alt key to be released
 
         const int MYACTION_HOTKEY_ID = 0; // hotkey unassigned
 
@@ -40,15 +41,14 @@ namespace Timestamper
             base.Dispose(disposing);
         }
         protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+        { // monitor keyboard input for the hotkey combination
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID) // user defined hotkey has been pressed. 
             {
-                // user defined hotkey has been pressed. 
                 Clipboard.SetText(DateTime.Now.ToString("yyyy_MM_dd_HHmmssfff ")); // generate a timestamp in clipboard
+               // alt messes up the control + V paste shortcut, so wait until it's released or timeout
                 long currentTick = DateTime.Now.Ticks;
-                // alt messes up the control + V paste shortcut, so wait until it's released or timeout
                 while (ModifierKeys.HasFlag(Keys.Alt)&
-                    (DateTime.Now.Ticks - currentTick) < waittime_tics) { } 
+                    (DateTime.Now.Ticks - currentTick) < 5*wait_ticks_onesecond) { } // wait. do nothing.
                 SendKeys.Send("^V"); // paste clipboard contents
             }
             base.WndProc(ref m);
@@ -95,6 +95,9 @@ namespace Timestamper
             this.checkBox_shift = new System.Windows.Forms.CheckBox();
             this.checkBox_alt = new System.Windows.Forms.CheckBox();
             this.checkBox_ctrl = new System.Windows.Forms.CheckBox();
+            this.textbox_status = new System.Windows.Forms.TextBox();
+            this.label_textbox_status = new System.Windows.Forms.Label();
+            this.label_textbox_userhotkey = new System.Windows.Forms.Label();
             this.contextmenu_tray.SuspendLayout();
             this.mainpanel.SuspendLayout();
             this.SuspendLayout();
@@ -133,6 +136,9 @@ namespace Timestamper
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.label_textbox_userhotkey);
+            this.mainpanel.Controls.Add(this.label_textbox_status);
+            this.mainpanel.Controls.Add(this.textbox_status);
             this.mainpanel.Controls.Add(this.button_save);
             this.mainpanel.Controls.Add(this.label_usermodifier);
             this.mainpanel.Controls.Add(this.label_userhotkey);
@@ -249,6 +255,32 @@ namespace Timestamper
             this.checkBox_ctrl.Text = "Ctrl";
             this.checkBox_ctrl.UseVisualStyleBackColor = true;
             // 
+            // textbox_status
+            // 
+            this.textbox_status.Enabled = false;
+            this.textbox_status.Location = new System.Drawing.Point(167, 214);
+            this.textbox_status.Name = "textbox_status";
+            this.textbox_status.Size = new System.Drawing.Size(250, 22);
+            this.textbox_status.TabIndex = 10;
+            // 
+            // label_textbox_status
+            // 
+            this.label_textbox_status.AutoSize = true;
+            this.label_textbox_status.Location = new System.Drawing.Point(425, 219);
+            this.label_textbox_status.Name = "label_textbox_status";
+            this.label_textbox_status.Size = new System.Drawing.Size(48, 17);
+            this.label_textbox_status.TabIndex = 11;
+            this.label_textbox_status.Text = "Status";
+            // 
+            // label_textbox_userhotkey
+            // 
+            this.label_textbox_userhotkey.AutoSize = true;
+            this.label_textbox_userhotkey.Location = new System.Drawing.Point(333, 114);
+            this.label_textbox_userhotkey.Name = "label_textbox_userhotkey";
+            this.label_textbox_userhotkey.Size = new System.Drawing.Size(136, 17);
+            this.label_textbox_userhotkey.TabIndex = 12;
+            this.label_textbox_userhotkey.Text = "<- Type hotkey here";
+            // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -257,6 +289,7 @@ namespace Timestamper
             this.Controls.Add(this.mainpanel);
             this.Name = "mainwindow";
             this.Text = "Timestamper";
+            this.Load += new System.EventHandler(this.mainwindow_Load);
             this.contextmenu_tray.ResumeLayout(false);
             this.mainpanel.ResumeLayout(false);
             this.mainpanel.PerformLayout();
@@ -280,6 +313,9 @@ namespace Timestamper
         private Label label_userhotkey;
         private TextBox textbox_modifier;
         private Button button_save;
+        private Label label_textbox_userhotkey;
+        private Label label_textbox_status;
+        private TextBox textbox_status;
     }
 }
 

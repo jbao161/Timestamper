@@ -12,7 +12,7 @@ namespace Timestamper.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -56,6 +56,90 @@ namespace Timestamper.Properties {
             }
             set {
                 this["user_modifier"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool lastsaved_alt {
+            get {
+                return ((bool)(this["lastsaved_alt"]));
+            }
+            set {
+                this["lastsaved_alt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool lastsaved_ctrl {
+            get {
+                return ((bool)(this["lastsaved_ctrl"]));
+            }
+            set {
+                this["lastsaved_ctrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool lastsaved_shift {
+            get {
+                return ((bool)(this["lastsaved_shift"]));
+            }
+            set {
+                this["lastsaved_shift"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool lastsaved_win {
+            get {
+                return ((bool)(this["lastsaved_win"]));
+            }
+            set {
+                this["lastsaved_win"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastsaved_textbox_userhotkey {
+            get {
+                return ((string)(this["lastsaved_textbox_userhotkey"]));
+            }
+            set {
+                this["lastsaved_textbox_userhotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastsaved_textbox_keyintvalue {
+            get {
+                return ((string)(this["lastsaved_textbox_keyintvalue"]));
+            }
+            set {
+                this["lastsaved_textbox_keyintvalue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastsaved_textbox_modifier {
+            get {
+                return ((string)(this["lastsaved_textbox_modifier"]));
+            }
+            set {
+                this["lastsaved_textbox_modifier"] = value;
             }
         }
     }

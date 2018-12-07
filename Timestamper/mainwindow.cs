@@ -19,6 +19,11 @@ namespace Timestamper
         // Char codes corresponding to modifier keys in KeyEventArgs.KeyValue
         const int intchar_alt = 18, intchar_ctrl = 17, intchar_shift = 16, intchar_lwin = 91, intchar_rwin = 92, intchar_tab = 9, intchar_backspace = 8, intchar_capslock = 20;
 
+        private void mainwindow_Load(object sender, EventArgs e)
+        {
+            LoadSettings();
+        }
+
         int user_hotkey = Properties.Settings.Default.user_hotkey;
         int user_modifier = Properties.Settings.Default.user_modifier;
 
@@ -36,13 +41,26 @@ namespace Timestamper
             UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
             if (RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, user_modifier, user_hotkey))
             {
+                // remember the hotkey used
                 Properties.Settings.Default.user_hotkey = user_hotkey;
                 Properties.Settings.Default.user_modifier = user_modifier;
-                textbox_userhotkey.Text = "Success";
+                // record the information displayed
+                Properties.Settings.Default.lastsaved_textbox_userhotkey = textbox_userhotkey.Text;
+                Properties.Settings.Default.lastsaved_textbox_modifier = textbox_modifier.Text;
+                Properties.Settings.Default.lastsaved_textbox_keyintvalue = textbox_keyintvalue.Text;
+                Properties.Settings.Default.lastsaved_alt = checkBox_alt.Checked;
+                Properties.Settings.Default.lastsaved_ctrl = checkBox_ctrl.Checked;
+                Properties.Settings.Default.lastsaved_shift = checkBox_shift.Checked;
+                Properties.Settings.Default.lastsaved_win = checkBox_win.Checked;
+                Properties.Settings.Default.Save();
+                textbox_status.Text = "Success. Hotkey assigned.";
             }
             else {
                 RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, Properties.Settings.Default.user_modifier, Properties.Settings.Default.user_hotkey);
-                textbox_userhotkey.Text = "Fail. Hotkey is unusable."; }
+                textbox_status.Text = "Fail. Hotkey is unusable.";
+            }
+
+
         }
 
         public mainwindow()
@@ -51,26 +69,37 @@ namespace Timestamper
             // hook the keyboard shortcut
             RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, Properties.Settings.Default.user_modifier, Properties.Settings.Default.user_hotkey);
         }
-
+        private void LoadSettings()
+        {
+textbox_userhotkey.Text =             Properties.Settings.Default.lastsaved_textbox_userhotkey;;
+textbox_modifier.Text =             Properties.Settings.Default.lastsaved_textbox_modifier;
+textbox_keyintvalue.Text =             Properties.Settings.Default.lastsaved_textbox_keyintvalue;
+checkBox_alt.Checked =             Properties.Settings.Default.lastsaved_alt;
+checkBox_ctrl.Checked =             Properties.Settings.Default.lastsaved_ctrl;
+checkBox_shift.Checked =             Properties.Settings.Default.lastsaved_shift;
+checkBox_win.Checked =             Properties.Settings.Default.lastsaved_win;
+            textbox_status.Text = "Previously saved configuration loaded.";
+        }
         private void textbox_userhotkey_KeyDown(object sender, KeyEventArgs e)
         {
             Keys modifierKeys = e.Modifiers;
             Keys pressedKey = e.KeyData ^ modifierKeys; //remove modifier keys
-
+            textbox_status.Text = ("");
+            string prev_textbox_userhotkey_text = textbox_userhotkey.Text;
+            // display which key was pressed
+            var converter = new KeysConverter();
+            textbox_userhotkey.Text = converter.ConvertToString(e.KeyData);
+            textbox_keyintvalue.Text = e.KeyValue.ToString();
             // if only modifier keys are pressed, do nothing
             if (e.KeyValue == intchar_alt || e.KeyValue == intchar_ctrl || e.KeyValue == intchar_shift
                 || e.KeyValue == intchar_lwin || e.KeyValue == intchar_rwin
                 || e.KeyValue == intchar_tab || e.KeyValue == intchar_capslock || e.KeyValue == intchar_backspace
                 )
             {
-                textbox_userhotkey.Text = e.KeyCode.ToString() + " (Not usable)";
+                textbox_status.Text = "\""+e.KeyCode.ToString() + " \" is not usable. Try another.";
+                textbox_userhotkey.Text = prev_textbox_userhotkey_text;
                 return;
             }
-
-            // display which key was pressed
-            var converter = new KeysConverter();
-            textbox_userhotkey.Text = converter.ConvertToString(e.KeyData);
-            textbox_keyintvalue.Text = e.KeyValue.ToString();
 
             // remember the user defined key and its modifiers
             user_hotkey = e.KeyValue;
