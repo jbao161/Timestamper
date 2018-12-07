@@ -85,6 +85,9 @@ namespace Timestamper
             this.tray_open = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_close = new System.Windows.Forms.ToolStripMenuItem();
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.label_textbox_userhotkey = new System.Windows.Forms.Label();
+            this.label_textbox_status = new System.Windows.Forms.Label();
+            this.textbox_status = new System.Windows.Forms.TextBox();
             this.button_save = new System.Windows.Forms.Button();
             this.label_usermodifier = new System.Windows.Forms.Label();
             this.label_userhotkey = new System.Windows.Forms.Label();
@@ -95,11 +98,10 @@ namespace Timestamper
             this.checkBox_shift = new System.Windows.Forms.CheckBox();
             this.checkBox_alt = new System.Windows.Forms.CheckBox();
             this.checkBox_ctrl = new System.Windows.Forms.CheckBox();
-            this.textbox_status = new System.Windows.Forms.TextBox();
-            this.label_textbox_status = new System.Windows.Forms.Label();
-            this.label_textbox_userhotkey = new System.Windows.Forms.Label();
+            this.picturebox_mainsplash = new System.Windows.Forms.PictureBox();
             this.contextmenu_tray.SuspendLayout();
             this.mainpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox_mainsplash)).BeginInit();
             this.SuspendLayout();
             // 
             // trayicon
@@ -136,6 +138,7 @@ namespace Timestamper
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.picturebox_mainsplash);
             this.mainpanel.Controls.Add(this.label_textbox_userhotkey);
             this.mainpanel.Controls.Add(this.label_textbox_status);
             this.mainpanel.Controls.Add(this.textbox_status);
@@ -154,6 +157,32 @@ namespace Timestamper
             this.mainpanel.Name = "mainpanel";
             this.mainpanel.Size = new System.Drawing.Size(504, 285);
             this.mainpanel.TabIndex = 1;
+            // 
+            // label_textbox_userhotkey
+            // 
+            this.label_textbox_userhotkey.AutoSize = true;
+            this.label_textbox_userhotkey.Location = new System.Drawing.Point(333, 114);
+            this.label_textbox_userhotkey.Name = "label_textbox_userhotkey";
+            this.label_textbox_userhotkey.Size = new System.Drawing.Size(136, 17);
+            this.label_textbox_userhotkey.TabIndex = 12;
+            this.label_textbox_userhotkey.Text = "<- Type hotkey here";
+            // 
+            // label_textbox_status
+            // 
+            this.label_textbox_status.AutoSize = true;
+            this.label_textbox_status.Location = new System.Drawing.Point(425, 219);
+            this.label_textbox_status.Name = "label_textbox_status";
+            this.label_textbox_status.Size = new System.Drawing.Size(48, 17);
+            this.label_textbox_status.TabIndex = 11;
+            this.label_textbox_status.Text = "Status";
+            // 
+            // textbox_status
+            // 
+            this.textbox_status.Enabled = false;
+            this.textbox_status.Location = new System.Drawing.Point(167, 214);
+            this.textbox_status.Name = "textbox_status";
+            this.textbox_status.Size = new System.Drawing.Size(250, 22);
+            this.textbox_status.TabIndex = 10;
             // 
             // button_save
             // 
@@ -255,31 +284,15 @@ namespace Timestamper
             this.checkBox_ctrl.Text = "Ctrl";
             this.checkBox_ctrl.UseVisualStyleBackColor = true;
             // 
-            // textbox_status
+            // picturebox_mainsplash
             // 
-            this.textbox_status.Enabled = false;
-            this.textbox_status.Location = new System.Drawing.Point(167, 214);
-            this.textbox_status.Name = "textbox_status";
-            this.textbox_status.Size = new System.Drawing.Size(250, 22);
-            this.textbox_status.TabIndex = 10;
-            // 
-            // label_textbox_status
-            // 
-            this.label_textbox_status.AutoSize = true;
-            this.label_textbox_status.Location = new System.Drawing.Point(425, 219);
-            this.label_textbox_status.Name = "label_textbox_status";
-            this.label_textbox_status.Size = new System.Drawing.Size(48, 17);
-            this.label_textbox_status.TabIndex = 11;
-            this.label_textbox_status.Text = "Status";
-            // 
-            // label_textbox_userhotkey
-            // 
-            this.label_textbox_userhotkey.AutoSize = true;
-            this.label_textbox_userhotkey.Location = new System.Drawing.Point(333, 114);
-            this.label_textbox_userhotkey.Name = "label_textbox_userhotkey";
-            this.label_textbox_userhotkey.Size = new System.Drawing.Size(136, 17);
-            this.label_textbox_userhotkey.TabIndex = 12;
-            this.label_textbox_userhotkey.Text = "<- Type hotkey here";
+            this.picturebox_mainsplash.Image = global::Timestamper.Properties.Resources.mainsplash;
+            this.picturebox_mainsplash.Location = new System.Drawing.Point(11, 11);
+            this.picturebox_mainsplash.Name = "picturebox_mainsplash";
+            this.picturebox_mainsplash.Size = new System.Drawing.Size(480, 97);
+            this.picturebox_mainsplash.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picturebox_mainsplash.TabIndex = 13;
+            this.picturebox_mainsplash.TabStop = false;
             // 
             // mainwindow
             // 
@@ -293,6 +306,7 @@ namespace Timestamper
             this.contextmenu_tray.ResumeLayout(false);
             this.mainpanel.ResumeLayout(false);
             this.mainpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox_mainsplash)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -316,6 +330,7 @@ namespace Timestamper
         private Label label_textbox_userhotkey;
         private Label label_textbox_status;
         private TextBox textbox_status;
+        private PictureBox picturebox_mainsplash;
     }
 }
 
