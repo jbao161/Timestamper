@@ -10,6 +10,15 @@ namespace Timestamper
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        const int keybd_key_shift = 0x10;
+        const int keybd_key_control = 0x11;
+        const int keybd_key_alt = 0x12;
+        const int keybd_state_pressed = 1;
+        const int keybd_state_unpressed = 2;
+
+        const int waittime_tics = 10000000; // todo: replace this with timespan.tickspersecond
 
         const int MYACTION_HOTKEY_ID = 0; // hotkey unassigned
 
@@ -36,6 +45,10 @@ namespace Timestamper
             {
                 // user defined hotkey has been pressed. 
                 Clipboard.SetText(DateTime.Now.ToString("yyyy_MM_dd_HHmmssfff ")); // generate a timestamp in clipboard
+                long currentTick = DateTime.Now.Ticks;
+                // alt messes up the control + V paste shortcut, so wait until it's released or timeout
+                while (ModifierKeys.HasFlag(Keys.Alt)&
+                    (DateTime.Now.Ticks - currentTick) < waittime_tics) { } 
                 SendKeys.Send("^V"); // paste clipboard contents
             }
             base.WndProc(ref m);
