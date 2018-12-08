@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Timestamper.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="user_savekey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
+    <Setting Name="option_startminized" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="user_hotkey" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>

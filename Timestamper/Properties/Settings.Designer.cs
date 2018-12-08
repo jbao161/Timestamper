@@ -25,13 +25,13 @@ namespace Timestamper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys user_savekey {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool option_startminized {
             get {
-                return ((global::System.Windows.Forms.Keys)(this["user_savekey"]));
+                return ((bool)(this["option_startminized"]));
             }
             set {
-                this["user_savekey"] = value;
+                this["option_startminized"] = value;
             }
         }
         

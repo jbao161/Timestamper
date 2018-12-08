@@ -85,6 +85,8 @@ namespace Timestamper
             this.tray_open = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_close = new System.Windows.Forms.ToolStripMenuItem();
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.checkBox_startminimized = new System.Windows.Forms.CheckBox();
+            this.picturebox_mainsplash = new System.Windows.Forms.PictureBox();
             this.label_textbox_userhotkey = new System.Windows.Forms.Label();
             this.label_textbox_status = new System.Windows.Forms.Label();
             this.textbox_status = new System.Windows.Forms.TextBox();
@@ -98,7 +100,6 @@ namespace Timestamper
             this.checkBox_shift = new System.Windows.Forms.CheckBox();
             this.checkBox_alt = new System.Windows.Forms.CheckBox();
             this.checkBox_ctrl = new System.Windows.Forms.CheckBox();
-            this.picturebox_mainsplash = new System.Windows.Forms.PictureBox();
             this.contextmenu_tray.SuspendLayout();
             this.mainpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox_mainsplash)).BeginInit();
@@ -108,7 +109,7 @@ namespace Timestamper
             // 
             this.trayicon.ContextMenuStrip = this.contextmenu_tray;
             this.trayicon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayicon.Icon")));
-            this.trayicon.Text = "TrayDemo";
+            this.trayicon.Text = "Time Stamper";
             this.trayicon.Visible = true;
             this.trayicon.DoubleClick += new System.EventHandler(this.trayicon_DoubleClick);
             // 
@@ -132,12 +133,13 @@ namespace Timestamper
             // 
             this.tray_close.Name = "tray_close";
             this.tray_close.Size = new System.Drawing.Size(114, 24);
-            this.tray_close.Text = "Close";
+            this.tray_close.Text = "Quit";
             this.tray_close.Click += new System.EventHandler(this.tray_close_Click);
             // 
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.checkBox_startminimized);
             this.mainpanel.Controls.Add(this.picturebox_mainsplash);
             this.mainpanel.Controls.Add(this.label_textbox_userhotkey);
             this.mainpanel.Controls.Add(this.label_textbox_status);
@@ -155,134 +157,19 @@ namespace Timestamper
             this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainpanel.Location = new System.Drawing.Point(0, 0);
             this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Size = new System.Drawing.Size(504, 285);
+            this.mainpanel.Size = new System.Drawing.Size(504, 298);
             this.mainpanel.TabIndex = 1;
             // 
-            // label_textbox_userhotkey
+            // checkBox_startminimized
             // 
-            this.label_textbox_userhotkey.AutoSize = true;
-            this.label_textbox_userhotkey.Location = new System.Drawing.Point(333, 114);
-            this.label_textbox_userhotkey.Name = "label_textbox_userhotkey";
-            this.label_textbox_userhotkey.Size = new System.Drawing.Size(136, 17);
-            this.label_textbox_userhotkey.TabIndex = 12;
-            this.label_textbox_userhotkey.Text = "<- Type hotkey here";
-            // 
-            // label_textbox_status
-            // 
-            this.label_textbox_status.AutoSize = true;
-            this.label_textbox_status.Location = new System.Drawing.Point(425, 219);
-            this.label_textbox_status.Name = "label_textbox_status";
-            this.label_textbox_status.Size = new System.Drawing.Size(48, 17);
-            this.label_textbox_status.TabIndex = 11;
-            this.label_textbox_status.Text = "Status";
-            // 
-            // textbox_status
-            // 
-            this.textbox_status.Enabled = false;
-            this.textbox_status.Location = new System.Drawing.Point(167, 214);
-            this.textbox_status.Name = "textbox_status";
-            this.textbox_status.Size = new System.Drawing.Size(250, 22);
-            this.textbox_status.TabIndex = 10;
-            // 
-            // button_save
-            // 
-            this.button_save.Location = new System.Drawing.Point(244, 242);
-            this.button_save.Name = "button_save";
-            this.button_save.Size = new System.Drawing.Size(74, 30);
-            this.button_save.TabIndex = 9;
-            this.button_save.Text = "Save";
-            this.button_save.UseVisualStyleBackColor = true;
-            this.button_save.Click += new System.EventHandler(this.button_save_Click);
-            // 
-            // label_usermodifier
-            // 
-            this.label_usermodifier.AutoSize = true;
-            this.label_usermodifier.Location = new System.Drawing.Point(324, 182);
-            this.label_usermodifier.Name = "label_usermodifier";
-            this.label_usermodifier.Size = new System.Drawing.Size(93, 17);
-            this.label_usermodifier.TabIndex = 8;
-            this.label_usermodifier.Text = "Modifier code";
-            // 
-            // label_userhotkey
-            // 
-            this.label_userhotkey.AutoSize = true;
-            this.label_userhotkey.Location = new System.Drawing.Point(324, 154);
-            this.label_userhotkey.Name = "label_userhotkey";
-            this.label_userhotkey.Size = new System.Drawing.Size(67, 17);
-            this.label_userhotkey.TabIndex = 7;
-            this.label_userhotkey.Text = "Key code";
-            // 
-            // textbox_modifier
-            // 
-            this.textbox_modifier.Enabled = false;
-            this.textbox_modifier.Location = new System.Drawing.Point(167, 182);
-            this.textbox_modifier.Name = "textbox_modifier";
-            this.textbox_modifier.Size = new System.Drawing.Size(151, 22);
-            this.textbox_modifier.TabIndex = 6;
-            this.textbox_modifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textbox_keyintvalue
-            // 
-            this.textbox_keyintvalue.Enabled = false;
-            this.textbox_keyintvalue.Location = new System.Drawing.Point(167, 154);
-            this.textbox_keyintvalue.Name = "textbox_keyintvalue";
-            this.textbox_keyintvalue.Size = new System.Drawing.Size(151, 22);
-            this.textbox_keyintvalue.TabIndex = 5;
-            this.textbox_keyintvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textbox_userhotkey
-            // 
-            this.textbox_userhotkey.Location = new System.Drawing.Point(167, 114);
-            this.textbox_userhotkey.Name = "textbox_userhotkey";
-            this.textbox_userhotkey.ReadOnly = true;
-            this.textbox_userhotkey.Size = new System.Drawing.Size(151, 22);
-            this.textbox_userhotkey.TabIndex = 4;
-            this.textbox_userhotkey.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textbox_userhotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_userhotkey_KeyDown);
-            // 
-            // checkBox_win
-            // 
-            this.checkBox_win.AutoSize = true;
-            this.checkBox_win.Location = new System.Drawing.Point(69, 196);
-            this.checkBox_win.Name = "checkBox_win";
-            this.checkBox_win.Size = new System.Drawing.Size(54, 21);
-            this.checkBox_win.TabIndex = 3;
-            this.checkBox_win.Text = "Win";
-            this.checkBox_win.UseVisualStyleBackColor = true;
-            this.checkBox_win.CheckedChanged += new System.EventHandler(this.checkBox_win_CheckedChanged);
-            // 
-            // checkBox_shift
-            // 
-            this.checkBox_shift.AutoSize = true;
-            this.checkBox_shift.Enabled = false;
-            this.checkBox_shift.Location = new System.Drawing.Point(69, 168);
-            this.checkBox_shift.Name = "checkBox_shift";
-            this.checkBox_shift.Size = new System.Drawing.Size(58, 21);
-            this.checkBox_shift.TabIndex = 2;
-            this.checkBox_shift.Text = "Shift";
-            this.checkBox_shift.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_alt
-            // 
-            this.checkBox_alt.AutoSize = true;
-            this.checkBox_alt.Enabled = false;
-            this.checkBox_alt.Location = new System.Drawing.Point(69, 141);
-            this.checkBox_alt.Name = "checkBox_alt";
-            this.checkBox_alt.Size = new System.Drawing.Size(46, 21);
-            this.checkBox_alt.TabIndex = 1;
-            this.checkBox_alt.Text = "Alt";
-            this.checkBox_alt.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_ctrl
-            // 
-            this.checkBox_ctrl.AutoSize = true;
-            this.checkBox_ctrl.Enabled = false;
-            this.checkBox_ctrl.Location = new System.Drawing.Point(69, 114);
-            this.checkBox_ctrl.Name = "checkBox_ctrl";
-            this.checkBox_ctrl.Size = new System.Drawing.Size(51, 21);
-            this.checkBox_ctrl.TabIndex = 0;
-            this.checkBox_ctrl.Text = "Ctrl";
-            this.checkBox_ctrl.UseVisualStyleBackColor = true;
+            this.checkBox_startminimized.AutoSize = true;
+            this.checkBox_startminimized.Location = new System.Drawing.Point(363, 83);
+            this.checkBox_startminimized.Name = "checkBox_startminimized";
+            this.checkBox_startminimized.Size = new System.Drawing.Size(126, 21);
+            this.checkBox_startminimized.TabIndex = 14;
+            this.checkBox_startminimized.Text = "Start minimized";
+            this.checkBox_startminimized.UseVisualStyleBackColor = true;
+            this.checkBox_startminimized.CheckedChanged += new System.EventHandler(this.checkBox_startminimized_CheckedChanged);
             // 
             // picturebox_mainsplash
             // 
@@ -294,15 +181,151 @@ namespace Timestamper
             this.picturebox_mainsplash.TabIndex = 13;
             this.picturebox_mainsplash.TabStop = false;
             // 
+            // label_textbox_userhotkey
+            // 
+            this.label_textbox_userhotkey.AutoSize = true;
+            this.label_textbox_userhotkey.Location = new System.Drawing.Point(318, 135);
+            this.label_textbox_userhotkey.Name = "label_textbox_userhotkey";
+            this.label_textbox_userhotkey.Size = new System.Drawing.Size(136, 17);
+            this.label_textbox_userhotkey.TabIndex = 12;
+            this.label_textbox_userhotkey.Text = "<- Type hotkey here";
+            // 
+            // label_textbox_status
+            // 
+            this.label_textbox_status.AutoSize = true;
+            this.label_textbox_status.Location = new System.Drawing.Point(408, 231);
+            this.label_textbox_status.Name = "label_textbox_status";
+            this.label_textbox_status.Size = new System.Drawing.Size(48, 17);
+            this.label_textbox_status.TabIndex = 11;
+            this.label_textbox_status.Text = "Status";
+            // 
+            // textbox_status
+            // 
+            this.textbox_status.Enabled = false;
+            this.textbox_status.Location = new System.Drawing.Point(152, 231);
+            this.textbox_status.Name = "textbox_status";
+            this.textbox_status.Size = new System.Drawing.Size(250, 22);
+            this.textbox_status.TabIndex = 10;
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(204, 259);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(74, 30);
+            this.button_save.TabIndex = 9;
+            this.button_save.Text = "Save";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // label_usermodifier
+            // 
+            this.label_usermodifier.AutoSize = true;
+            this.label_usermodifier.BackColor = System.Drawing.SystemColors.Window;
+            this.label_usermodifier.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label_usermodifier.Location = new System.Drawing.Point(361, 199);
+            this.label_usermodifier.Name = "label_usermodifier";
+            this.label_usermodifier.Size = new System.Drawing.Size(95, 19);
+            this.label_usermodifier.TabIndex = 8;
+            this.label_usermodifier.Text = "Modifier code";
+            // 
+            // label_userhotkey
+            // 
+            this.label_userhotkey.AutoSize = true;
+            this.label_userhotkey.BackColor = System.Drawing.SystemColors.Window;
+            this.label_userhotkey.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label_userhotkey.Location = new System.Drawing.Point(361, 171);
+            this.label_userhotkey.Name = "label_userhotkey";
+            this.label_userhotkey.Size = new System.Drawing.Size(69, 19);
+            this.label_userhotkey.TabIndex = 7;
+            this.label_userhotkey.Text = "Key code";
+            // 
+            // textbox_modifier
+            // 
+            this.textbox_modifier.BackColor = System.Drawing.SystemColors.Window;
+            this.textbox_modifier.Enabled = false;
+            this.textbox_modifier.Location = new System.Drawing.Point(204, 199);
+            this.textbox_modifier.Name = "textbox_modifier";
+            this.textbox_modifier.Size = new System.Drawing.Size(151, 22);
+            this.textbox_modifier.TabIndex = 6;
+            this.textbox_modifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textbox_keyintvalue
+            // 
+            this.textbox_keyintvalue.BackColor = System.Drawing.SystemColors.Window;
+            this.textbox_keyintvalue.Enabled = false;
+            this.textbox_keyintvalue.Location = new System.Drawing.Point(204, 171);
+            this.textbox_keyintvalue.Name = "textbox_keyintvalue";
+            this.textbox_keyintvalue.Size = new System.Drawing.Size(151, 22);
+            this.textbox_keyintvalue.TabIndex = 5;
+            this.textbox_keyintvalue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textbox_userhotkey
+            // 
+            this.textbox_userhotkey.Location = new System.Drawing.Point(152, 128);
+            this.textbox_userhotkey.Multiline = true;
+            this.textbox_userhotkey.Name = "textbox_userhotkey";
+            this.textbox_userhotkey.ReadOnly = true;
+            this.textbox_userhotkey.Size = new System.Drawing.Size(151, 34);
+            this.textbox_userhotkey.TabIndex = 4;
+            this.textbox_userhotkey.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textbox_userhotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_userhotkey_KeyDown);
+            // 
+            // checkBox_win
+            // 
+            this.checkBox_win.AutoSize = true;
+            this.checkBox_win.Location = new System.Drawing.Point(54, 213);
+            this.checkBox_win.Name = "checkBox_win";
+            this.checkBox_win.Size = new System.Drawing.Size(54, 21);
+            this.checkBox_win.TabIndex = 3;
+            this.checkBox_win.Text = "Win";
+            this.checkBox_win.UseVisualStyleBackColor = true;
+            this.checkBox_win.CheckedChanged += new System.EventHandler(this.checkBox_win_CheckedChanged);
+            // 
+            // checkBox_shift
+            // 
+            this.checkBox_shift.AutoSize = true;
+            this.checkBox_shift.Enabled = false;
+            this.checkBox_shift.Location = new System.Drawing.Point(54, 185);
+            this.checkBox_shift.Name = "checkBox_shift";
+            this.checkBox_shift.Size = new System.Drawing.Size(58, 21);
+            this.checkBox_shift.TabIndex = 2;
+            this.checkBox_shift.Text = "Shift";
+            this.checkBox_shift.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_alt
+            // 
+            this.checkBox_alt.AutoSize = true;
+            this.checkBox_alt.Enabled = false;
+            this.checkBox_alt.Location = new System.Drawing.Point(54, 158);
+            this.checkBox_alt.Name = "checkBox_alt";
+            this.checkBox_alt.Size = new System.Drawing.Size(46, 21);
+            this.checkBox_alt.TabIndex = 1;
+            this.checkBox_alt.Text = "Alt";
+            this.checkBox_alt.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_ctrl
+            // 
+            this.checkBox_ctrl.AutoSize = true;
+            this.checkBox_ctrl.Enabled = false;
+            this.checkBox_ctrl.Location = new System.Drawing.Point(54, 131);
+            this.checkBox_ctrl.Name = "checkBox_ctrl";
+            this.checkBox_ctrl.Size = new System.Drawing.Size(51, 21);
+            this.checkBox_ctrl.TabIndex = 0;
+            this.checkBox_ctrl.Text = "Ctrl";
+            this.checkBox_ctrl.UseVisualStyleBackColor = true;
+            // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 285);
+            this.ClientSize = new System.Drawing.Size(504, 298);
             this.Controls.Add(this.mainpanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainwindow";
-            this.Text = "Timestamper";
+            this.Text = "Time Stamper";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainwindow_FormClosed);
             this.Load += new System.EventHandler(this.mainwindow_Load);
+            this.Resize += new System.EventHandler(this.Mainwindow_Resize);
             this.contextmenu_tray.ResumeLayout(false);
             this.mainpanel.ResumeLayout(false);
             this.mainpanel.PerformLayout();
@@ -331,6 +354,7 @@ namespace Timestamper
         private Label label_textbox_status;
         private TextBox textbox_status;
         private PictureBox picturebox_mainsplash;
+        private CheckBox checkBox_startminimized;
     }
 }
 

@@ -25,6 +25,18 @@ namespace Timestamper
         }
 
         int user_hotkey = Properties.Settings.Default.user_hotkey;
+
+        private void checkBox_startminimized_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.option_startminized = checkBox_startminimized.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void mainwindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.ExitThread();
+        }
+
         int user_modifier = Properties.Settings.Default.user_modifier;
 
         private void checkBox_win_CheckedChanged(object sender, EventArgs e)
@@ -55,12 +67,11 @@ namespace Timestamper
                 Properties.Settings.Default.Save();
                 textbox_status.Text = "Success. Hotkey assigned.";
             }
-            else {
+            else
+            {
                 RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, Properties.Settings.Default.user_modifier, Properties.Settings.Default.user_hotkey);
                 textbox_status.Text = "Fail. Hotkey is unusable.";
             }
-
-
         }
 
         public mainwindow()
@@ -71,14 +82,15 @@ namespace Timestamper
         }
         private void LoadSettings()
         {
-textbox_userhotkey.Text =             Properties.Settings.Default.lastsaved_textbox_userhotkey;;
-textbox_modifier.Text =             Properties.Settings.Default.lastsaved_textbox_modifier;
-textbox_keyintvalue.Text =             Properties.Settings.Default.lastsaved_textbox_keyintvalue;
-checkBox_alt.Checked =             Properties.Settings.Default.lastsaved_alt;
-checkBox_ctrl.Checked =             Properties.Settings.Default.lastsaved_ctrl;
-checkBox_shift.Checked =             Properties.Settings.Default.lastsaved_shift;
-checkBox_win.Checked =             Properties.Settings.Default.lastsaved_win;
+            textbox_userhotkey.Text = Properties.Settings.Default.lastsaved_textbox_userhotkey; ;
+            textbox_modifier.Text = Properties.Settings.Default.lastsaved_textbox_modifier;
+            textbox_keyintvalue.Text = Properties.Settings.Default.lastsaved_textbox_keyintvalue;
+            checkBox_alt.Checked = Properties.Settings.Default.lastsaved_alt;
+            checkBox_ctrl.Checked = Properties.Settings.Default.lastsaved_ctrl;
+            checkBox_shift.Checked = Properties.Settings.Default.lastsaved_shift;
+            checkBox_win.Checked = Properties.Settings.Default.lastsaved_win;
             textbox_status.Text = "Previously saved configuration loaded.";
+            checkBox_startminimized.Checked = Properties.Settings.Default.option_startminized;
         }
         private void textbox_userhotkey_KeyDown(object sender, KeyEventArgs e)
         {
@@ -96,7 +108,7 @@ checkBox_win.Checked =             Properties.Settings.Default.lastsaved_win;
                 || e.KeyValue == intchar_tab || e.KeyValue == intchar_capslock || e.KeyValue == intchar_backspace
                 )
             {
-                textbox_status.Text = "\""+e.KeyCode.ToString() + " \" is not usable. Try another.";
+                textbox_status.Text = "\"" + e.KeyCode.ToString() + " \" is not usable. Try another.";
                 textbox_userhotkey.Text = prev_textbox_userhotkey_text;
                 return;
             }
@@ -113,9 +125,31 @@ checkBox_win.Checked =             Properties.Settings.Default.lastsaved_win;
             if (Control.ModifierKeys.HasFlag(Keys.Control)) { user_modifier += intmodifier_ctrl; checkBox_ctrl.Checked = true; }
             if (Control.ModifierKeys.HasFlag(Keys.Shift)) { user_modifier += intmodifier_shift; checkBox_shift.Checked = true; }
             if (checkBox_win.Checked) user_modifier += intmodifier_win;
-            
+
             // display which modifiers are pressed
             textbox_modifier.Text = user_modifier.ToString();
+        }
+        private void Mainwindow_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == WindowState)
+                Hide();
+        }
+
+        private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void Tray_open_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void Tray_close_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

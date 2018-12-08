@@ -16,7 +16,15 @@ namespace Timestamper
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new mainwindow());
+
+            if (Properties.Settings.Default.option_startminized)
+            {
+                mainwindow timestamper = new mainwindow();
+                Application.Run();
+            } else
+            {
+                Application.Run(new mainwindow());
+            }
         }
     }
 }
