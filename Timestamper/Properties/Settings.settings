@@ -32,5 +32,8 @@
     <Setting Name="lastsaved_textbox_modifier" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="user_timestamp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%yyyy_%MM_%dd_%HH%mm%ss%fff </Value>
+    </Setting>
   </Settings>
 </SettingsFile>

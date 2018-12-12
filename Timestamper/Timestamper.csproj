@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="window_options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="window_options.Designer.cs">
+      <DependentUpon>window_options.cs</DependentUpon>
+    </Compile>
     <Compile Include="mainwindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +61,9 @@
     <Compile Include="Settings.cs" />
     <Compile Include="timestamper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="window_options.resx">
+      <DependentUpon>window_options.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mainwindow.resx">
       <DependentUpon>mainwindow.cs</DependentUpon>
     </EmbeddedResource>

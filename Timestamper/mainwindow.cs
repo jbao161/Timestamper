@@ -37,6 +37,15 @@ namespace Timestamper
             Application.ExitThread();
         }
 
+        private void button_options_Click(object sender, EventArgs e)
+        {
+            window_options form_options = new window_options();
+            form_options.Show(this);
+            form_options.Tag = this;
+            form_options.Location = this.Location;
+            form_options.Show();
+        }
+
         int user_modifier = Properties.Settings.Default.user_modifier;
 
         private void checkBox_win_CheckedChanged(object sender, EventArgs e)

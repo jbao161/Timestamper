@@ -10,15 +10,7 @@ namespace Timestamper
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        // begin deletion: simulate a key press programmatically. unfortunately, this didn't work to "cancel out" a user's holding down alt key
-        //[System.Runtime.InteropServices.DllImport("user32.dll")]
-        //static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-        //const int keybd_key_shift = 0x10;
-        //const int keybd_key_control = 0x11;
-        //const int keybd_key_alt = 0x12;
-        //const int keybd_state_pressed = 1;
-        //const int keybd_state_unpressed = 2;
-        // end deletion
+
         const int wait_ticks_onesecond = (int)TimeSpan.TicksPerSecond; // wait one second for alt key to be released
 
         const int MYACTION_HOTKEY_ID = 0; // hotkey unassigned
@@ -44,7 +36,7 @@ namespace Timestamper
         { // monitor keyboard input for the hotkey combination
             if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID) // user defined hotkey has been pressed. 
             {
-                Clipboard.SetText(DateTime.Now.ToString("yyyy_MM_dd_HHmmssfff ")); // generate a timestamp in clipboard
+                Clipboard.SetText(DateTime.Now.ToString(Properties.Settings.Default.user_timestamp)); // generate a timestamp in clipboard
                // alt messes up the control + V paste shortcut, so wait until it's released or timeout
                 long currentTick = DateTime.Now.Ticks;
                 while (ModifierKeys.HasFlag(Keys.Alt)&
@@ -100,6 +92,7 @@ namespace Timestamper
             this.checkBox_shift = new System.Windows.Forms.CheckBox();
             this.checkBox_alt = new System.Windows.Forms.CheckBox();
             this.checkBox_ctrl = new System.Windows.Forms.CheckBox();
+            this.button_options = new System.Windows.Forms.Button();
             this.contextmenu_tray.SuspendLayout();
             this.mainpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox_mainsplash)).BeginInit();
@@ -139,6 +132,7 @@ namespace Timestamper
             // mainpanel
             // 
             this.mainpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainpanel.Controls.Add(this.button_options);
             this.mainpanel.Controls.Add(this.checkBox_startminimized);
             this.mainpanel.Controls.Add(this.picturebox_mainsplash);
             this.mainpanel.Controls.Add(this.label_textbox_userhotkey);
@@ -157,7 +151,7 @@ namespace Timestamper
             this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainpanel.Location = new System.Drawing.Point(0, 0);
             this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Size = new System.Drawing.Size(504, 298);
+            this.mainpanel.Size = new System.Drawing.Size(504, 330);
             this.mainpanel.TabIndex = 1;
             // 
             // checkBox_startminimized
@@ -209,7 +203,7 @@ namespace Timestamper
             // 
             // button_save
             // 
-            this.button_save.Location = new System.Drawing.Point(204, 259);
+            this.button_save.Location = new System.Drawing.Point(328, 277);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(74, 30);
             this.button_save.TabIndex = 9;
@@ -314,11 +308,21 @@ namespace Timestamper
             this.checkBox_ctrl.Text = "Ctrl";
             this.checkBox_ctrl.UseVisualStyleBackColor = true;
             // 
+            // button_options
+            // 
+            this.button_options.Location = new System.Drawing.Point(54, 277);
+            this.button_options.Name = "button_options";
+            this.button_options.Size = new System.Drawing.Size(166, 28);
+            this.button_options.TabIndex = 15;
+            this.button_options.Text = "Customize Time Stamp";
+            this.button_options.UseVisualStyleBackColor = true;
+            this.button_options.Click += new System.EventHandler(this.button_options_Click);
+            // 
             // mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 298);
+            this.ClientSize = new System.Drawing.Size(504, 330);
             this.Controls.Add(this.mainpanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainwindow";
@@ -355,6 +359,7 @@ namespace Timestamper
         private TextBox textbox_status;
         private PictureBox picturebox_mainsplash;
         private CheckBox checkBox_startminimized;
+        private Button button_options;
     }
 }
 

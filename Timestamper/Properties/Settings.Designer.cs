@@ -142,5 +142,17 @@ namespace Timestamper.Properties {
                 this["lastsaved_textbox_modifier"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%yyyy_%MM_%dd_%HH%mm%ss%fff ")]
+        public string user_timestamp {
+            get {
+                return ((string)(this["user_timestamp"]));
+            }
+            set {
+                this["user_timestamp"] = value;
+            }
+        }
     }
 }
